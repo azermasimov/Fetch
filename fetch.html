@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <button id="btn">Click to see some Data</button> -->
+    <br />
+    <div id="div"></div>
+
+    <script>
+        // const btn = document.querySelector("#btn");
+        const div = document.querySelector("#div");
+        // console.log(btn, div);
+
+        window.addEventListener("load", load);
+
+        function load() {
+            const url = "https://jsonplaceholder.typicode.com/users";
+
+            function fetchPost(url) {
+                fetch(url, {
+                    method: "GET"
+                })
+                    .then(response => response.json())
+                    .then(json => {
+                        let output = ``;
+        
+                        for(let user of json) {
+                            // console.log(user.name);
+                            output = `
+                                <ul> 
+                                    <li> ${user.id} </li>   
+                                    <li> ${user.name} </li>
+                                    <li> ${user.username} </li>
+                                    <li> ${user.email} </li>
+                                </ul>
+                            `;
+                            div.innerHTML += output;     
+                        }
+                    })
+                    .catch(err => console.log("Error"));
+            }
+
+            fetchPost(url);
+        }
+    </script>
+</body>
+</html>
